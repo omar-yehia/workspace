@@ -54,8 +54,11 @@
             <!-- ////////////Content Box 01 -->
 
 
+            <div class="form-control">
+                <input type="text" placeholder="Search by governorate or by space name" onkeyup="">
+            </div>
             <!-- ////////////Content Box 02 -->
-            <section class="box-content box-2" id="services">
+            <section class="box-content box-2" id="section">
                 <div class="container">
                     <div class="row heading">
                         <div class="col-lg-12">
@@ -80,6 +83,7 @@
 
                         </select>
                     </form>
+
 
 
                     <div class=" categories">

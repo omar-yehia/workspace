@@ -121,7 +121,7 @@
                             {{--FOR User And Owner--}}
                         @else
                             <li>
-                                <a class="page-scroll" href="{{ route('userProfile') }}">Profile</a>
+                                <a class="page-scroll" href="{{ route('userProfile') }}">My Reservations</a>
                             </li>
 
 
