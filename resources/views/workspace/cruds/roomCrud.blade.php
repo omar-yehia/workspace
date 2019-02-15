@@ -38,7 +38,7 @@
                     <th>Chair price/hour</th>
                     <th>Room Image</th>
                     <tr>
-                        <input type="hidden" class="form-control" name="room_id" required>
+                        {{--<input type="hidden" class="form-control" name="room_id" value="" required>--}}
 
                         <td><input type="text" class="form-control" name="space_name" required></td>
                         <td><input type="text" class="form-control" name="room_name" required></td>

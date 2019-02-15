@@ -1,7 +1,42 @@
 @extends('workspace.layouts.master')
 
 @section('pageContent')
+    {{--STYLES FOR THE STAR RATING ELEMENTS--}}
+    {{--<style>--}}
+    {{--@font-face {--}}
+    {{--font-family: 'Material Icons';--}}
+    {{--font-style: normal;--}}
+    {{--font-weight: 400;--}}
+    {{--src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff) format('woff');--}}
+    {{--}--}}
+    {{--.material-icons {--}}
+    {{--font-family: 'Material Icons';--}}
+    {{--font-weight: normal;--}}
+    {{--font-style: normal;--}}
+    {{--font-size: 20px;--}}
+    {{--line-height: 1;--}}
+    {{--letter-spacing: normal;--}}
+    {{--text-transform: none;--}}
+    {{--display: inline-block;--}}
+    {{--word-wrap: normal;--}}
+    {{---moz-font-feature-settings: 'liga';--}}
+    {{---moz-osx-font-smoothing: grayscale;--}}
+    {{--}--}}
+    {{--i {--}}
+    {{--cursor :  pointer;--}}
+    {{--}--}}
+    {{--</style>--}}
 
+    {{--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>--}}
+
+
+    {{-- CATCHING ERRORS--}}
+    @if(count($errors)>0)
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger">{{$error}}</div>
+        @endforeach
+
+    @endif
 
     <!-- Navigation -->
     <div class="box-shadow">
@@ -48,42 +83,122 @@
 
 
         <!-- /////////////////////////////////////////Content -->
-        <div id="page-content">
+        <div id="content">
 
 
             <!-- ////////////Content Box 01 -->
 
 
-            <div class="form-control">
-                <input type="text" placeholder="Search by governorate or by space name" onkeyup="">
-            </div>
-            <!-- ////////////Content Box 02 -->
+            {{--LIVE SEARCH --}}
+
+            <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+
             <section class="box-content box-2" id="section">
                 <div class="container">
                     <div class="row heading">
                         <div class="col-lg-12">
-                            <h2>Select Governorate</h2>
+
+                            <h3 align="center" style="color: #206bd5;font-style: italic">Get to your beloved
+                                <i class="fa fa-heart" style="font-size: 24px;font-style: italic;color: #eb563f;"></i>
+                                space now with us :) </h3><br/>
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">Search Spaces In Any Governorate</div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input type="text" name="search" id="search" class="form-control"
+                                               placeholder="Search Spaces"/>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <h3 align="center">Total Results : <span id="total_records"></span></h3>
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Space Name</th>
+                                                <th>Space Governorate</th>
+                                                <th>Space Address</th>
+                                                <th>Space Rooms</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{--<input type="hidden" name="_token" value="{{ Session::token() }}">--}}
+                        <script>
+                            $(document).ready(function () {
+
+
+                                function fetch_customer_data(query = '') {
+                                    // $.ajaxSetup({
+                                    //     headers: {
+                                    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    //     }
+                                    // });
+
+                                    $.ajax({
+                                        // headers: {
+                                        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        // },
+                                        url: "{{ route('live_search.action') }}",
+                                        method: 'GET',
+                                        data: {query: query},
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            $('tbody').html(data.table_data);
+                                            $('#total_records').text(data.total_data);
+                                        }
+                                    })
+                                }
+
+                                $(document).on('keyup', '#search', function () {
+                                    var query = $(this).val();
+                                    fetch_customer_data(query);
+                                });
+
+                                fetch_customer_data();
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row heading">
+                        <div class="col-lg-12">
+                            <h2>Or Select By Governorate</h2>
+
+                            <div>
+                                {{--select governorate--}}
+                                <form action="{{route('governorateSpaces')}}" method="get">
+                                    @csrf
+
+                                    <select name="selectedGovernorate" onchange="this.form.submit()">
+
+                                        <option>Choose Governorate</option>
+
+                                        @foreach($governoratesList as $governorate)
+                                            <option>{{$governorate}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </form>
+                            </div>
+                            {{----}}
+                            {{--<div>--}}
+                            {{--<input class="form-control" type="text"--}}
+                            {{--placeholder="Search by governorate or by space name" onkeyup="">--}}
+                            {{--</div>--}}
+
                             <hr>
                             {{--<div class="intro">Lorem ipsum dolor sit amet</div>--}}
                         </div>
                     </div>
-
-
-                    {{--select governorate--}}
-                    <form action="{{route('governorateSpaces')}}" method="get" >
-                        @csrf
-
-                        <select name="selectedGovernorate" onchange="this.form.submit()">
-
-                            <option>Choose Governorate</option>
-
-                            @foreach($governoratesList as $governorate)
-                                <option>{{$governorate}}</option>
-                            @endforeach
-
-                        </select>
-                    </form>
-
 
 
                     <div class=" categories">
@@ -99,7 +214,9 @@
                     </div>
 
 
-                    <div class="row" >
+                    {{--   SHOW SPACES IN BOXES   --}}
+
+                    <div class="row">
                         <div class="portfolio-items">
 
                             @if(isset($spacesInGovernorate))
@@ -113,13 +230,25 @@
                                              onclick="window.location='{{route('reserveSpace',$spaceFromSelect->space_id)}}'">
 
                                             <div class="post">
-                                                <div class="item-container wow fadeInUp" data-wow-delay="200ms"
+                                                <div class="item-container wow fadeInUp"
+                                                     data-wow-delay="200ms"
                                                 >
                                                     <img src="images/{{$spaceFromSelect->space_image_path}}"
 
                                                     />
                                                 </div>
                                                 <span>{{$spaceFromSelect->space_name}}</span>
+
+                                                {{--<h3 style="color: #00abff;font-style:italic;">Space Rating</h3>--}}
+                                                {{--<div class="ratingClass{{$spaceFromSelect->space_id}}" style="color: #ebac34;"></div>--}}
+
+                                                {{--<script>--}}
+                                                {{--$(document).ready(function(){--}}
+                                                {{--$('.ratingClass'+'{{$spaceFromSelect->space_id}}').addRating({'icon':'star','selectedRatings':'{{$spaceFromSelect->space_rating}}','max':'6'});--}}
+                                                {{--})--}}
+                                                {{--</script>--}}
+
+
                                             </div>
                                         </div>
                                     @endforeach
@@ -153,6 +282,14 @@
                     {{--</div>--}}
                     {{--</div>--}}
                 </div>
+
+            </section>
+
+            <!-- ////////////Content Box 02 -->
+
+
+            <section class="box-content box-2" id="section">
+
             </section>
 
             <section class="box-content box-1 box-style-1" id="about">
@@ -164,9 +301,11 @@
                                     <img src="images/key.png"/>
                                 </div>
                                 <h3 class="services-heading">Text Heading A</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo. Aenean feugiat
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo.
+                                    Aenean feugiat
                                     in
-                                    ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta
+                                    ante et blandit. Vestibulum posuere molestie risus, ac interdum magna
+                                    porta
                                     non. </p>
                             </div>
                         </div>
@@ -177,9 +316,11 @@
                                         <img src="images/money.png"/>
                                     </div>
                                     <h3 class="services-heading">Text Heading B</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo. Aenean
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo.
+                                        Aenean
                                         feugiat
-                                        in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta
+                                        in ante et blandit. Vestibulum posuere molestie risus, ac interdum
+                                        magna porta
                                         non. </p>
                                 </div>
                             </div>
@@ -191,9 +332,11 @@
                                         <img src="images/days.png"/>
                                     </div>
                                     <h3 class="services-heading">Text Heading C</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo. Aenean
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo.
+                                        Aenean
                                         feugiat
-                                        in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta
+                                        in ante et blandit. Vestibulum posuere molestie risus, ac interdum
+                                        magna porta
                                         non. </p>
                                 </div>
                             </div>
@@ -218,12 +361,16 @@
                                 <div class="wrap-img">
                                     <img src="images/people1.jpg" class="img-circle" alt="">
                                 </div>
-                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum
+                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac
+                                    interdum
                                     magna
-                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt porta lorem
-                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere molestie
+                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt
+                                    porta lorem
+                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere
+                                    molestie
                                     risus, ac
-                                    interdum magna porta non. Pellentesque rutrum fringilla elementum. Curabitur
+                                    interdum magna porta non. Pellentesque rutrum fringilla elementum.
+                                    Curabitur
                                     tincidunt
                                     porta lorem vitae accumsan. </p>
                                 <div class="info">
@@ -236,12 +383,16 @@
                                 <div class="wrap-img">
                                     <img src="images/people2.jpg" class="img-circle" alt="">
                                 </div>
-                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum
+                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac
+                                    interdum
                                     magna
-                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt porta lorem
-                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere molestie
+                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt
+                                    porta lorem
+                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere
+                                    molestie
                                     risus, ac
-                                    interdum magna porta non. Pellentesque rutrum fringilla elementum. Curabitur
+                                    interdum magna porta non. Pellentesque rutrum fringilla elementum.
+                                    Curabitur
                                     tincidunt
                                     porta lorem vitae accumsan. </p>
                                 <div class="info">
@@ -254,12 +405,16 @@
                                 <div class="wrap-img">
                                     <img src="images/people3.jpg" class="img-circle" alt="">
                                 </div>
-                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum
+                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac
+                                    interdum
                                     magna
-                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt porta lorem
-                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere molestie
+                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt
+                                    porta lorem
+                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere
+                                    molestie
                                     risus, ac
-                                    interdum magna porta non. Pellentesque rutrum fringilla elementum. Curabitur
+                                    interdum magna porta non. Pellentesque rutrum fringilla elementum.
+                                    Curabitur
                                     tincidunt
                                     porta lorem vitae accumsan. </p>
                                 <div class="info">

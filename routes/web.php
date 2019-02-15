@@ -116,7 +116,33 @@ Route::get('userProfile','UserController@userProfile')->name('userProfile');
 //    TESTS
 //=============================
 //
+
+
+//
+Route::get('searchTest2',function (){
+    return view('workspace.pages.liveSearchTest2');
+});
+
+
+Route::get('/live_search', 'LiveSearch@index');
+Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
+//
+
+Route::get('starsTest',function (){
+    return view('workspace.pages.starsRatingTest');
+
+})->name('starsTest');
+
+
+
+//Route::get('searchTest','TestController@searchTest')->name('searchTest');
+
+Route::get('searchTest',function (){
+    return view('workspace.pages.liveSearchTest');
+})->name('searchTest');
+
 //Route::post('searchSpace','SpaceController@searchSpace')->name('searchSpace');
+//
 //
 //
 //Route::get('/test', 'TestController@testOneToOne');

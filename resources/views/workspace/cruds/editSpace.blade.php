@@ -56,7 +56,7 @@
 
                                    value="{{$space->space_number_of_rooms}}" required></td>
 
-                        <td><input type="text" class="form-control" name="space_image_path"
+                        <td><input type="file" class="form-control" name="space_image_path"
                                    value="{{$space->space_image_path}}"
                                    required></td>
                     </tr>

@@ -10,6 +10,16 @@
                 </div>
             @endif
 
+
+                {{-- CATCHING ERRORS--}}
+                @if(count($errors)>0)
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+
+                @endif
+
+
             @foreach($rooms as $room)
                 <div class="col-sm-6 col-md-3 col-lg-3">
 
@@ -49,9 +59,10 @@
                         {{--placeholder="from hour"--}}
                         {{--min="1" max="24" onblur="if(this.value>24){this.value=24}"--}}
                         {{--value="{{old('reservation_from_hour')}}" required>--}}
-                        <select class="form-control" name="reservation_to_hour"
+                        <select class="form-control" name="reservation_from_hour"
                                 value="{{old('reservation_to_hour')}}"
                                 required>
+                            <option >From Hour</option>
                             @foreach(range(1, 24) as $hour)
                                 <option>{{$hour}}</option>
                             @endforeach
@@ -64,7 +75,9 @@
                         {{--placeholder="to hour" value="{{old('reservation_to_hour')}}" required>--}}
 
                         <select class="form-control" name="reservation_to_hour"
-                                value="{{old('reservation_to_hour')}}" required>
+                                value="{{old('reservation_to_hour')}}"
+                                required>
+                            <option >To Hour</option>
                             @foreach(range(1, 24) as $hour)
                                 <option>{{$hour}}</option>
                             @endforeach

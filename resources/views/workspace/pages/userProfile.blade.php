@@ -10,6 +10,15 @@
                 </div>
             @endif
 
+                {{-- CATCHING ERRORS--}}
+                @if(count($errors)>0)
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+
+                @endif
+
+
             <h4 style="color: #49ad2c;">My Reservations</h4>
 
             {{--@foreach($userReservations as $userReservation)--}}
