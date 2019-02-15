@@ -37,7 +37,6 @@ class ReservationController extends Controller
             'room_id' => 'required|numeric',
             'user_id' => 'required|numeric',
             'reservation_date' => 'required|string|date',
-            'space_number_of_rooms' => 'required|numeric',
             'reservation_from_hour' => 'required|numeric',
             'reservation_to_hour' => 'required|numeric',
             'number_of_chairs_reserved' => 'required|numeric',
@@ -78,21 +77,24 @@ class ReservationController extends Controller
     public function update(Request $request)
     {
 
-        $this->validate($request,[
-            'space_id' => 'required|numeric',
-            'room_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
-            'reservation_date' => 'required|string|date',
-            'space_number_of_rooms' => 'required|numeric',
-            'reservation_from_hour' => 'required|numeric',
-            'reservation_to_hour' => 'required|numeric',
-            'number_of_chairs_reserved' => 'required|numeric',
-        ]);
+
 
         $reservation = Reservation::find($request->reservation_id);
 
         if (isset($reservation)) {
+
             if (($reservation->user_id == Auth::user()->user_id) || (Auth::user()->user_type == 1)) {
+
+                $this->validate($request,[
+                    'space_id' => 'required|numeric',
+                    'room_id' => 'required|numeric',
+                    'user_id' => 'required|numeric',
+                    'reservation_date' => 'required|string|date',
+                    'reservation_from_hour' => 'required|numeric',
+                    'reservation_to_hour' => 'required|numeric',
+                    'number_of_chairs_reserved' => 'required|numeric',
+                ]);
+
                 $reservation->space_id = $request->input('space_id');
                 $reservation->room_id = $request->input('room_id');
                 $reservation->user_id = $request->input('user_id');

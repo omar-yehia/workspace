@@ -55,16 +55,19 @@ class SpaceController extends Controller
 
     public function create(Request $request)
     {
-        $this->validate($request, [
-            'space_name' => 'required|string',
-            'space_city' => 'required|string',
-            'owner_user_id' => 'required|numeric',
-            'space_address' => 'required|string',
-            'space_number_of_rooms' => 'required|numeric',
-            'space_image_path' => 'required|string',
-        ]);
 
         if ($request->input('space_owner_name') == Auth::user()->name || Auth::user()->user_type == 1) {
+
+
+            $this->validate($request, [
+                'space_name' => 'required|string',
+                'space_city' => 'required|string',
+                'space_owner_name' => 'required|string',
+                'space_address' => 'required|string',
+                'space_number_of_rooms' => 'required|numeric',
+                'space_image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
 
 
             $user = User::where('name', $request->input('space_owner_name'))->get();
@@ -105,14 +108,7 @@ class SpaceController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate($request, [
-            'space_name' => 'required|string',
-            'space_city' => 'required|string',
-            'owner_user_id' => 'required|numeric',
-            'space_address' => 'required|string',
-            'space_number_of_rooms' => 'required|numeric',
-            'space_image_path' => 'required|string',
-        ]);
+
 
         $user = User::where('name', $request->input('space_owner_name'))->get();
 
@@ -120,12 +116,28 @@ class SpaceController extends Controller
 
         if (($space->owner_user_id == Auth::user()->user_id) || (Auth::user()->user_type == 1)) {
 
+            $this->validate($request, [
+                'space_name' => 'required|string',
+                'space_city' => 'required|string',
+                'space_owner_name' => 'required|string',
+                'space_address' => 'required|string',
+                'space_number_of_rooms' => 'required|numeric',
+                'space_image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+
+            $ImageFile = $request->file('space_image_path');
+            $destinationPath = public_path('/images');
+            $radomNumber = rand(1, 90);
+            $ImageName = $radomNumber . $ImageFile->getClientOriginalName();
+            $ImageFile->move($destinationPath, $ImageName);
+
             $space->space_name = $request->space_name;
             $space->owner_user_id = $user[0]->user_id;
             $space->space_city = $request->space_city;
             $space->space_address = $request->space_address;
             $space->space_number_of_rooms = $request->space_number_of_rooms;
-            $space->space_image_path = $request->space_image_path;
+            $space->space_image_path = $ImageName;
 
             $space->save();
 

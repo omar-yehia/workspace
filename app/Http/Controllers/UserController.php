@@ -54,22 +54,6 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-//        $this->validate($request,[
-//            'name' => [
-//                'required',
-//                'regex:/^[a-zA-Z0-9]*([a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$/'
-//            ]
-//            ,
-//            'email' => 'required|string|email|max:255|unique:users',
-//            'password' => 'required|string|min:6|confirmed',
-//            'user_mobile' => 'required|min:11|max:11|regex:/(01)[0-9]{9}/',
-//            'user_type' => 'required|in:1,2,3',
-
-//            'user_type' => [
-//                'required',
-//                Rule::in([1,2, 3]),
-//                ]
-//        ]);
 
         if (Auth::user()->user_type == 1) {
 
@@ -132,9 +116,14 @@ class UserController extends Controller
             ]);
 
             $user = User::find($request->user_id);
+
             $user->name = $request->name;
             $user->password = $request->password;
-            $user->email = $request->email;
+
+//            if($user->email != $request->email){
+//                $user->email = $request->email;
+//            }
+
             $user->user_mobile = $request->user_mobile;
             $user->user_type = $request->user_type;
 
