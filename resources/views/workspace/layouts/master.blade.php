@@ -7,41 +7,7 @@
     <meta name="description" content="Free Bootstrap Themes by 365Bootstrap dot com - Free Responsive Html5 Templates">
     <meta name="author" content="http://www.365bootstrap.com">
 
-    <title>OpenHouse - Houses for Rent</title>
-
-
-
-    {{--STYLES FOR THE STAR RATING ELEMENTS--}}
-    {{--<style>--}}
-        {{--@font-face {--}}
-            {{--font-family: 'Material Icons';--}}
-            {{--font-style: normal;--}}
-            {{--font-weight: 400;--}}
-            {{--src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff) format('woff');--}}
-        {{--}--}}
-        {{--.material-icons {--}}
-            {{--font-family: 'Material Icons';--}}
-            {{--font-weight: normal;--}}
-            {{--font-style: normal;--}}
-            {{--font-size: 24px;--}}
-            {{--line-height: 1;--}}
-            {{--letter-spacing: normal;--}}
-            {{--text-transform: none;--}}
-            {{--display: inline-block;--}}
-            {{--word-wrap: normal;--}}
-            {{---moz-font-feature-settings: 'liga';--}}
-            {{---moz-osx-font-smoothing: grayscale;--}}
-        {{--}--}}
-        {{--i {--}}
-            {{--cursor :  pointer;--}}
-        {{--}--}}
-    {{--</style>--}}
-
-
-
-
-
-
+    <title>Workspace.com</title>
 
 {{--from the auth login head--}}
 {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
@@ -61,9 +27,11 @@
     <link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css'>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
@@ -143,13 +111,13 @@
                             {{--FOR Owner--}}
                         @elseif(Auth::user()->user_type==2)
                             <li>
-                                <a class="page-scroll" href="{{ route('spaceCrud') }}">Insert Space</a>
+                                <a class="page-scroll" href="{{ route('spaceCrud') }}">Add Spaces</a>
                             </li>
                             <li>
-                                <a class="page-scroll" href="{{ route('roomCrud') }}">Insert Room</a>
+                                <a class="page-scroll" href="{{ route('roomCrud') }}">Add Rooms</a>
                             </li>
                             <li>
-                                <a class="page-scroll" href="{{ route('userProfile') }}">My Reservations</a>
+                                <a class="page-scroll" href="{{ route('userProfile') }}">Reservations Of Clients</a>
                             </li>
 
                             {{--FOR User And Owner--}}
@@ -182,7 +150,7 @@
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
+                                      style="display: none;border: none">
                                     @csrf
                                 </form>
                             </div>
@@ -211,26 +179,27 @@
 <footer>
     <div class="top-footer">
         <div id="owl-brand" class="owl-carousel">
-            <div class="item">
-                <a href="single.html"><img src="images/15.jpg"/></a>
+            <div class="item ">
+                <a href="single.html"><img class="p-3" src="images/images1.jfif"/></a>
             </div>
-            <div class="item">
-                <a href="single.html"><img src="images/16.jpg"/></a>
+            <div class="item ">
+                <a href="single.html"><img class="p-3" src="images/images2.jfif"/></a>
             </div>
-            <div class="item">
-                <a href="single.html"><img src="images/17.jpg"/></a>
+            <div class="item ">
+                <a href="single.html"><img class="p-3" src="images/images.png"/></a>
             </div>
-            <div class="item">
-                <a href="single.html"><img src="images/18.jpg"/></a>
+            <div class="item ">
+                <a href="single.html"><img class="p-3" src="images/images1.jfif"/></a>
             </div>
-            <div class="item">
-                <a href="single.html"><img src="images/19.jpg"/></a>
+            <div class="item ">
+                <a href="single.html"><img class="p-3" src="images/images2.jfif"/></a>
             </div>
-            <div class="item">
-                <a href="single.html"><img src="images/20.jpg"/></a>
+            <div class="item ">
+                <a href="single.html"><img class="p-3" src="images/images.png"/></a>
             </div>
-            <div class="item">
-                <a href="single.html"><img src="images/21.jpg"/></a>
+
+            <div class="item ">
+                <a href="single.html"><img class="p-3" src="images/images1.jfif"/></a>
             </div>
         </div>
     </div>
@@ -239,21 +208,13 @@
             <div class="row">
                 <div class="col-footer col-md-4">
                     <h2 class="footer-title">About Us</h2>
-                    <div class="textwidget">Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac
-                        interdum magna porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt porta
-                        lorem vitae accumsan. <br> <br>
-                        Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta
-                        non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt porta lorem vitae accumsan.
+                    <div class="textwidget">We are Organization that help to reservse the free work space<br>
+                        for study or meeting with team by Enter in our website and reserved<br>
+                        owner Place.
                     </div>
                 </div>
                 <div class="col-footer col-md-4 widget_recent_entries">
-                    <h2 class="footer-title">Recent Posts</h2>
-                    <ul>
-                        <li><a href="#">MOST VISITED COUNTRIES</a></li>
-                        <li><a href="#">5 PLACES THAT MAKE A GREAT HOLIDAY</a></li>
-                        <li><a href="#">PEBBLE TIME STEEL IS ON TRACK TO SHIP IN JULY</a></li>
-                        <li><a href="#">STARTUP COMPANY&#8217;S CO-FOUNDER TALKS ON HIS NEW PRODUCT</a></li>
-                    </ul>
+
                 </div>
                 <div class="col-footer col-md-4">
                     <h2 class="footer-title">NEWS LETTER</h2>
@@ -271,19 +232,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <p>Copyright 20xx - <a href="http://www.365bootstrap.com" target="_blank" rel="nofollow">Bootstrap
-                            Themes</a> Designed by <a href="http://www.365bootstrap.com" target="_blank" rel="nofollow">365BOOTSTRAP</a>
-                    </p>
+                    <p>© Your Company. All Rights Reserved.</p>
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a>
                         </li>
-                        <li><a href="https://www.facebook.com/365bootstrap"><i class="fa fa-facebook"></i></a>
+                        <li><a href="https://www.facebook.com/365bootstrap"><i class="fab fa-facebook"></i></a>
                         </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        <li><a href="#"><i class="fab fa-linkedin"></i></a>
                         </li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a>
+                        <li><a href="#"><i class="fab fa-pinterest"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -301,21 +260,9 @@
 </footer>
 
 
-
-
 <!-- jQuery -->
-
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-
-
-
-
-{{-- STARTRATING PLUGIN :) --}}
-{{--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>--}}
-<script src="js/jquery.star.rating.js"></script>
-
 
 <!-- Custom Theme JavaScript -->
 <script src="js/agency.js"></script>
@@ -330,21 +277,24 @@
 <script type="text/javascript" src="js/main.js"></script>
 
 
-<!-- carousel -->
-<script src="owl-carousel/owl.carousel.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#owl-brand").owlCarousel({
-            autoPlay: 3000,
-            items: 6,
-            itemsDesktop: [1199, 4],
-            itemsDesktopSmall: [979, 2],
-            navigation: true,
-            navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
-            pagination: false
+{{--@if()--}}
+    <!-- carousel -->
+    <script src="owl-carousel/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#owl-brand").owlCarousel({
+                autoPlay: 5000,
+                items: 6,
+                itemsDesktop: [1199, 4],
+                itemsDesktopSmall: [979, 2],
+                navigation: true,
+                navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
+                pagination: false
+            });
         });
-    });
-</script>
+    </script>
+{{--@endif--}}
+
 
 </body>
 </html>

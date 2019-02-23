@@ -16,7 +16,7 @@ class Space extends Model
 
     public function reservation()
     {
-        return $this->hasMany('App\Reservation');
+        return $this->hasMany('App\Reservation','reservation_id');
     }
 
     public function room()

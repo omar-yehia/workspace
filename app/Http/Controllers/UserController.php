@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Reservation;
+use App\Space;
 use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
@@ -19,14 +21,13 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+//    USERS ROLES
+//    Admin 1
+//    Owner 2
+//    User 3
 
-// search by search form
-//    public function searchUser2(Request $request)
-//    {
-//        $userNameMatch = User::where('user_name', 'like', '%' . $request->searchWord . '%')->get();
-//        $userCityMatch = User::where('user_city', 'like', '%' . $request->searchWord . '%')->get();
-//        return [$userNameMatch, $userCityMatch];
-//    }
+
+
 
 
 //    get all users
@@ -43,12 +44,38 @@ class UserController extends Controller
     public function userProfile()
     {
 
-//        if(Auth::user()->user_type==){
+//        if owner get the reservations of spaces he owns
+        if (Auth::user()->user_type == 2) {
 
-        $userReservations = Reservation::where('user_id', Auth::user()->user_id)->get();
+            $ownerSpaces = Space::where('owner_user_id', Auth::user()->user_id)->get();
+
+            if (!$ownerSpaces->isEmpty()) {
+
+                $clientsReservationsColl = new Collection();
+
+                foreach ($ownerSpaces as $ownerSpace) {
+                    $clientsReservationsColl = $clientsReservationsColl->merge(Reservation::where('space_id', $ownerSpace->space_id)->get() );
+                }
+
+//                return  $clientsReservationsColl;
+
+                $userReservations = $clientsReservationsColl;
+//                return view('workspace.pages.userProfile', compact('userReservations'));
+
+            }
+
+//            else {
+//                return view('workspace.pages.userProfile', compact('userReservations'));
+//            }
+
+        }
+        elseif (Auth::user()->user_type == 3) {
+            $userReservations = Reservation::where('user_id', Auth::user()->user_id)->get();
+//            return view('workspace.pages.userProfile', compact('userReservations'));
+        }
+
         return view('workspace.pages.userProfile', compact('userReservations'));
 
-//        }
     }
 
 
@@ -57,7 +84,7 @@ class UserController extends Controller
 
         if (Auth::user()->user_type == 1) {
 
-            $this->validate($request,[
+            $this->validate($request, [
                 'name' => [
                     'required',
                     'regex:/^[a-zA-Z0-9]*([a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$/'
@@ -100,13 +127,13 @@ class UserController extends Controller
 
         if (Auth::user()->user_type == 1) {
 
-            $this->validate($request,[
+            $this->validate($request, [
                 'name' => [
                     'required',
                     'regex:/^[a-zA-Z0-9]*([a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$/'
                 ]
                 ,
-                'email' => 'required|string|email|max:255|unique:users',
+                'email' => 'required|string|email|max:255',
                 'password' => 'required|string|min:6',
                 'user_mobile' => 'required|min:11|max:11|regex:/(01)[0-9]{9}/',
                 'user_type' => 'required|in:1,2,3',
@@ -116,6 +143,14 @@ class UserController extends Controller
             ]);
 
             $user = User::find($request->user_id);
+
+//            $user->update(array(
+//            "name" => $request->name,
+//            "password" => $request->password,
+////            "email" => $request->email,
+//            "user_mobile" => $request->user_mobile
+//                )
+//            );
 
             $user->name = $request->name;
             $user->password = $request->password;
@@ -146,3 +181,30 @@ class UserController extends Controller
 
 
 }
+
+
+
+
+
+
+// Test Codes just for Refrence
+
+
+
+// search by search form
+//    public function searchUser2(Request $request)
+//    {
+//        $userNameMatch = User::where('user_name', 'like', '%' . $request->searchWord . '%')->get();
+//        $userCityMatch = User::where('user_city', 'like', '%' . $request->searchWord . '%')->get();
+//        return [$userNameMatch, $userCityMatch];
+//    }
+
+
+//                $clientsReservationsFinal = new Reservation();
+//                $clientsReservationsFinal->fill($clientsReservations);
+
+//                $clientsReservationsFinal::hydrate($clientsReservations);
+
+
+//                return  $clientsReservations;
+//                    ->space->space_id;

@@ -1,36 +1,8 @@
 @extends('workspace.layouts.master')
 
 @section('pageContent')
-    {{--STYLES FOR THE STAR RATING ELEMENTS--}}
-    {{--<style>--}}
-    {{--@font-face {--}}
-    {{--font-family: 'Material Icons';--}}
-    {{--font-style: normal;--}}
-    {{--font-weight: 400;--}}
-    {{--src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff) format('woff');--}}
-    {{--}--}}
-    {{--.material-icons {--}}
-    {{--font-family: 'Material Icons';--}}
-    {{--font-weight: normal;--}}
-    {{--font-style: normal;--}}
-    {{--font-size: 20px;--}}
-    {{--line-height: 1;--}}
-    {{--letter-spacing: normal;--}}
-    {{--text-transform: none;--}}
-    {{--display: inline-block;--}}
-    {{--word-wrap: normal;--}}
-    {{---moz-font-feature-settings: 'liga';--}}
-    {{---moz-osx-font-smoothing: grayscale;--}}
-    {{--}--}}
-    {{--i {--}}
-    {{--cursor :  pointer;--}}
-    {{--}--}}
-    {{--</style>--}}
-
-    {{--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>--}}
 
 
-    {{-- CATCHING ERRORS--}}
     @if(count($errors)>0)
         @foreach($errors->all() as $error)
             <div class="alert alert-danger">{{$error}}</div>
@@ -54,9 +26,11 @@
                     <!-- Static Header -->
                     <div class="header-text hidden-xs">
                         <div class="col-md-12">
-                            <h1>WELCOME!</h1>
-                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo. Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta non.</span><br><br>
-                            <a href="#" class="btn btn-primary">Learn More</a>
+                            <h3>WELCOME TO OUR WORKSPACE WEBSITE</h3>
+                            <br><br>
+                            <a href="#select" class="btn btn-primary">MAKE A RESERVATION <i
+                                    class="fas fa-hand-point-down "
+                                    style="font-size: 20px "></i></a>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -65,9 +39,11 @@
                     <!-- Static Header -->
                     <div class="header-text hidden-xs">
                         <div class="col-md-12">
-                            <h1>SPEND YOUR DREAM HOLIDAY!</h1>
-                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo. Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta non.</span><br><br>
-                            <a href="#" class="btn btn-primary">Learn More</a>
+                            <h3>DO ALL YOUR WORK HERE!</h3>
+                            <br><br>
+                            <a href="#select" class="btn btn-primary">MAKE A RESERVATION <i
+                                    class="fas fa-hand-point-down"
+                                    style="font-size: 20px"></i></a>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -80,382 +56,363 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         </div><!-- /carousel -->
+    </div>
 
 
-        <!-- /////////////////////////////////////////Content -->
-        <div id="content">
+    <br><br><br>
 
 
-            <!-- ////////////Content Box 01 -->
+    <div class="container">
+        <div class="row heading subheading">
+            <div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">
+                <h4>Welcome To Our Creative WorkSpace </h4>
+                <br><br>
+                <a href="#select" class="btn btn-primary">LET'S GO! <i class="fas fa-hand-point-down"
+                                                                       style="font-size: 20px"></i></a>
+
+            </div>
+        </div>
+    </div>
+
+    <br><br><br>
+    <!-- /////////////////////selected City////////////////////Content -->
 
 
-            {{--LIVE SEARCH --}}
-
-            <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-
-            <section class="box-content box-2" id="section">
-                <div class="container">
-                    <div class="row heading">
-                        <div class="col-lg-12">
-
-                            <h3 align="center" style="color: #206bd5;font-style: italic">Get to your beloved
-                                <i class="fa fa-heart" style="font-size: 24px;font-style: italic;color: #eb563f;"></i>
-                                space now with us :) </h3><br/>
-
-                            <div class="panel panel-info">
-                                <div class="panel-heading">Search Spaces In Any Governorate</div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <input type="text" name="search" id="search" class="form-control"
-                                               placeholder="Search Spaces"/>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <h3 align="center">Total Results : <span id="total_records"></span></h3>
-                                        <table class="table table-striped table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th>Space Name</th>
-                                                <th>Space Governorate</th>
-                                                <th>Space Address</th>
-                                                <th>Space Rooms</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
 
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{--<input type="hidden" name="_token" value="{{ Session::token() }}">--}}
-                        <script>
-                            $(document).ready(function () {
+    {{--LIVE SEARCH--}}
 
 
-                                function fetch_customer_data(query = '') {
-                                    // $.ajaxSetup({
-                                    //     headers: {
-                                    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    //     }
-                                    // });
 
-                                    $.ajax({
-                                        // headers: {
-                                        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        // },
-                                        url: "{{ route('live_search.action') }}",
-                                        method: 'GET',
-                                        data: {query: query},
-                                        dataType: 'json',
-                                        success: function (data) {
-                                            $('tbody').html(data.table_data);
-                                            $('#total_records').text(data.total_data);
-                                        }
-                                    })
-                                }
 
-                                $(document).on('keyup', '#search', function () {
-                                    var query = $(this).val();
-                                    fetch_customer_data(query);
-                                });
+    <!-- ////////////Content Box 01 -->
 
-                                fetch_customer_data();
-                            });
-                        </script>
-                    </div>
+
+    <!-- ////////////Content Box 02 -->
+    <section class="box-content box-0  backGroundImage" id="select" >
+        <div class="container" >
+
+
+            <div class="row heading cityheader " >
+                <div class="col-lg-12" >
+                    <h2 class="text-center" style="color: rgb(255,150,31);">SELECT GOVERNORATE</h2>
+                    <hr>
                 </div>
-
-                <div class="container">
-                    <div class="row heading">
-                        <div class="col-lg-12">
-                            <h2>Or Select By Governorate</h2>
-
-                            <div>
-                                {{--select governorate--}}
-                                <form action="{{route('governorateSpaces')}}" method="get">
-                                    @csrf
-
-                                    <select name="selectedGovernorate" onchange="this.form.submit()">
-
-                                        <option>Choose Governorate</option>
-
-                                        @foreach($governoratesList as $governorate)
-                                            <option>{{$governorate}}</option>
-                                        @endforeach
-
-                                    </select>
-                                </form>
-                            </div>
-                            {{----}}
-                            {{--<div>--}}
-                            {{--<input class="form-control" type="text"--}}
-                            {{--placeholder="Search by governorate or by space name" onkeyup="">--}}
-                            {{--</div>--}}
-
-                            <hr>
-                            {{--<div class="intro">Lorem ipsum dolor sit amet</div>--}}
-                        </div>
-                    </div>
+            </div>
 
 
-                    <div class=" categories">
-                        <ul class="cat">
-                            <li>
-                                <ol class="type list-inline">
-                                    {{--place for filter buttons--}}
+            <div>
+                {{--select governorate--}}
+                <form action="{{route('governorateSpaces')}}" method="get">
+                    @csrf
 
-                                </ol>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
+                    <select name="selectedGovernorate" onchange="this.form.submit()" style="color: #ff961f;">
 
+                        <option>Choose Governorate</option>
 
-                    {{--   SHOW SPACES IN BOXES   --}}
+                        @foreach($governoratesList as $governorate)
+                            <option>{{$governorate}}</option>
+                        @endforeach
 
-                    <div class="row">
-                        <div class="portfolio-items">
+                    </select>
+                </form>
+            </div>
 
-                            @if(isset($spacesInGovernorate))
-                                <div class="row portfolio-items">
-                                    <h2>{{$governorateSelected}}</h2>
-                                </div>
+            {{--<div class=" categories">--}}
+            {{--<ul class="cat">--}}
+            {{--<li>--}}
+            {{--<ol class="type list-inline">--}}
+            {{--place for filter buttons--}}
 
-                                <div class="row">
-                                    @foreach($spacesInGovernorate as $spaceFromSelect)
-                                        <div class="col-sm-6 col-md-3 col-lg-3 "
-                                             onclick="window.location='{{route('reserveSpace',$spaceFromSelect->space_id)}}'">
+            {{--</ol>--}}
+            {{--</li>--}}
+            {{--</ul>--}}
+            {{--<div class="clearfix"></div>--}}
+            {{--</div>--}}
 
-                                            <div class="post">
-                                                <div class="item-container wow fadeInUp"
-                                                     data-wow-delay="200ms"
-                                                >
-                                                    <img src="images/{{$spaceFromSelect->space_image_path}}"
-
-                                                    />
-                                                </div>
-                                                <span>{{$spaceFromSelect->space_name}}</span>
-
-                                                {{--<h3 style="color: #00abff;font-style:italic;">Space Rating</h3>--}}
-                                                {{--<div class="ratingClass{{$spaceFromSelect->space_id}}" style="color: #ebac34;"></div>--}}
-
-                                                {{--<script>--}}
-                                                {{--$(document).ready(function(){--}}
-                                                {{--$('.ratingClass'+'{{$spaceFromSelect->space_id}}').addRating({'icon':'star','selectedRatings':'{{$spaceFromSelect->space_rating}}','max':'6'});--}}
-                                                {{--})--}}
-                                                {{--</script>--}}
-
-
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    @endif
-                                </div>
-
-                        </div>
-                    </div>
-
-
-                    {{--<div class="row">--}}
-                    {{--<div class="portfolio-items">--}}
-
-                    {{--@foreach($spaces as $space)--}}
-                    {{--<div class="col-sm-6 col-md-3 col-lg-3 {{$space->space_city}}"--}}
-                    {{--onclick="window.location='{{route('reserveSpace',$space->space_id)}}'">--}}
-
-                    {{--<div class="post">--}}
-                    {{--<div class="item-container wow fadeInUp" data-wow-delay="200ms"--}}
-                    {{-->--}}
-                    {{--<img src="images/{{$space->space_image_path}}"--}}
-
-                    {{--/>--}}
-                    {{--</div>--}}
-                    {{--<span>{{$space->space_name}}</span>--}}
-                    {{--</div>--}}
-                    {{--</div>--}}
-                    {{--@endforeach--}}
-
-
-                    {{--</div>--}}
-                    {{--</div>--}}
-                </div>
-
-            </section>
-
-            <!-- ////////////Content Box 02 -->
-
-
-            <section class="box-content box-2" id="section">
-
-            </section>
-
-            <section class="box-content box-1 box-style-1" id="about">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="box-item">
-                                <div class="wrap-img">
-                                    <img src="images/key.png"/>
-                                </div>
-                                <h3 class="services-heading">Text Heading A</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo.
-                                    Aenean feugiat
-                                    in
-                                    ante et blandit. Vestibulum posuere molestie risus, ac interdum magna
-                                    porta
-                                    non. </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="box-item">
-                                <div class="box-item">
-                                    <div class="wrap-img">
-                                        <img src="images/money.png"/>
-                                    </div>
-                                    <h3 class="services-heading">Text Heading B</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo.
-                                        Aenean
-                                        feugiat
-                                        in ante et blandit. Vestibulum posuere molestie risus, ac interdum
-                                        magna porta
-                                        non. </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="box-item">
-                                <div class="box-item">
-                                    <div class="wrap-img">
-                                        <img src="images/days.png"/>
-                                    </div>
-                                    <h3 class="services-heading">Text Heading C</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima quo.
-                                        Aenean
-                                        feugiat
-                                        in ante et blandit. Vestibulum posuere molestie risus, ac interdum
-                                        magna porta
-                                        non. </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ////////////Content Box 04 -->
-            <section class="box-content box-4 box-style-1" id="news">
-                <div class="container">
-                    <div class="row heading">
-                        <div class="col-lg-12">
-                            <h2>TESTIMONIALS</h2>
-                            <hr class="line02">
-                            <div class="intro">Lorem ipsum dolor sit amet</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="box-item">
-                                <div class="wrap-img">
-                                    <img src="images/people1.jpg" class="img-circle" alt="">
-                                </div>
-                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac
-                                    interdum
-                                    magna
-                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt
-                                    porta lorem
-                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere
-                                    molestie
-                                    risus, ac
-                                    interdum magna porta non. Pellentesque rutrum fringilla elementum.
-                                    Curabitur
-                                    tincidunt
-                                    porta lorem vitae accumsan. </p>
-                                <div class="info">
-                                    WILL SMITH
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box-item">
-                                <div class="wrap-img">
-                                    <img src="images/people2.jpg" class="img-circle" alt="">
-                                </div>
-                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac
-                                    interdum
-                                    magna
-                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt
-                                    porta lorem
-                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere
-                                    molestie
-                                    risus, ac
-                                    interdum magna porta non. Pellentesque rutrum fringilla elementum.
-                                    Curabitur
-                                    tincidunt
-                                    porta lorem vitae accumsan. </p>
-                                <div class="info">
-                                    WILL SMITH
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box-item">
-                                <div class="wrap-img">
-                                    <img src="images/people3.jpg" class="img-circle" alt="">
-                                </div>
-                                <p>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac
-                                    interdum
-                                    magna
-                                    porta non. Pellentesque rutrum fringilla elementum. Curabitur tincidunt
-                                    porta lorem
-                                    vitae accumsan. Aenean feugiat in ante et blandit. Vestibulum posuere
-                                    molestie
-                                    risus, ac
-                                    interdum magna porta non. Pellentesque rutrum fringilla elementum.
-                                    Curabitur
-                                    tincidunt
-                                    porta lorem vitae accumsan. </p>
-                                <div class="info">
-                                    WILL SMITH
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
         </div>
+    </section>
+
+
+
+
+
+    @if(isset($spacesInGovernorate))
+
+        <section>
+            <div class="container resultOfSelect" id="reserve">
+                <div class="row">
+
+                    <br><br><br>
+                    {{--GO TO SECTION -- NO NEED TO SCROLL --}}
+
+                    <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+                    <script>
+                        $(function () {
+                            $([document.documentElement, document.body]).animate({
+                                scrollTop: $("#reserve").offset().top
+                            }, 1000);
+                        });
+                    </script>
+
+
+                    <div class="row headerSelect">
+                        <h2>{{$governorateSelected}}</h2>
+                    </div>
+                    <br>
+                    <div class="row">
+                        @foreach($spacesInGovernorate as $spaceFromSelect)
+                            <div class="col-sm-6 col-md-3 col-lg-3 "
+                                 onclick="window.location='{{route('reserveSpace',$spaceFromSelect->space_id)}}'">
+
+                                <div class="post">
+                                    <div class="item-container wow fadeInUp imageSelect "
+                                         data-wow-delay="200ms"
+                                    >
+                                        <img src="images/{{$spaceFromSelect->space_image_path}}"
+                                        />
+                                    </div>
+                                    <span class="nameImageSelect">{{$spaceFromSelect->space_name}}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+    @endif
+
+    <!-- ////////////Content Box 01 -->
+    <section class="box-content box-1 box-style-1" id="about">
+        <div class="container">
+            <div class="row heading">
+                <div class="col-lg-12">
+                    <h2>WORKSPACE SERVICE</h2>
+                    <hr class="line02">
+
+                </div>
+            </div>
+
+            <div class="row  wow fadeInUp" data-wow-delay="400ms">
+                <div class="col-sm-4">
+                    <div class="box-item">
+                        <div class="wrap-img">
+                            <img src="images/users1.png"/>
+                        </div>
+                        <br><br><br>
+                        <h6 class="services-heading">PRIVATE MEETING ROOM</h6>
+                        <br>
+                        <p>This space seats up to 6 people. A white board and fiber-optic internet connection is
+                            in included with the space along
+                            with reception services, access to our professional xerox machine, and complimentary
+                            coffee, tea and water. </p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="box-item">
+                        <div class="box-item">
+
+                            <div class="wrap-img">
+
+                                <img src="images/wifi.png"/>
+                            </div>
+                            <br><br><br>
+                            <h6 class="services-heading">WIRELESS INTERNET</h6>
+                            <br>
+                            <p>Coworking Wi-Fi networks that are designed specifically for multi-tenanted
+                                buildings allow operators to tailor the
+                                connection to their members’ needs. Using a fully managed service provides the
+                                option for members to roam securely across your site,
+                                whether at their desk, in the common areas, or across various locations. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="box-item">
+                        <div class="box-item">
+                            <div class="wrap-img">
+                                <img src="images/computer.png"/>
+                            </div>
+                            <br><br><br>
+                            <h6 class="services-heading">FREE PUBLIC COMPUTER</h6>
+                            <br>
+                            <p>Each of our libraries have free computers for the public to use. With your
+                                library card, you may use the
+                                reservation system in each library to reserve a one-hour session. If you do not
+                                have a library card, you can register for a Computer
+                                Use Only card, or use one of our Express Computers. All of our libraries have
+                                free Wi-Fi accessibility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-----Contact Section--------------------------->
+
+
+    <!-- ////////////Content Box -->
+    <section class="box-content box-style-1">
+        <div class="container">
+            <div class="row heading">
+                <div class="col-lg-12">
+                    <h2>CONTACT</h2>
+                    <hr class="line02">
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4 box-item wow fadeInLeft " data-wow-delay="400ms">
+                    <h2>Contact Info</h2>
+                    <span>SED UT PERSPICIATIS UNDE OMNIS ISTE NATUS ERROR SIT VOLUPTATEM ACCUSANTIUM DOLOREMQUE LAUDANTIUM, TOTAM REM APERIAM.</span><br>
+                    <br>
+                    <p>JL.Kemacetan timur no.23. block.Q3<br>
+                        Jakarta-Indonesia</p>
+                    <p>+6221 888 888 90 <br>
+                        +6221 888 88891</p>
+                    <p>info@yourdomain.com</p>
+                </div>
+                <div class="col-md-8 wow fadeInRight" data-wow-delay="400ms">
+                    <h2>Contact Form</h2>
+                    <form id="ff" name="form1" method="post" action="contact.php">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" name="name" id="name"
+                                           placeholder="Enter name" required="required"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control input-lg" name="email" id="email"
+                                           placeholder="Enter email" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" name="subject" id="subject"
+                                           placeholder="Subject" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="form-group">
+										<textarea name="message" id="message" class="form-control" rows="4" cols="25"
+                                                  required="required"
+                                                  placeholder="Message"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-skin btn-lg page-scroll wow fadeInUp"
+                                        name="submitcontact" id="submitcontact">Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ////////////Content Box 04 -->
+
+
     </div>
 @endsection
 
 
 
 
-{{--  category refrence button--}}
-{{--<li><a href="#" data-filter=".taupo_central">Taupo Central</a></li>--}}
+
+{{--LIVE SEARCH--}}
+
+{{--<script type="text/javascript" src="js/jquery-2.1.1.js"></script>--}}
+
+{{--<section class="box-content box-2" id="section">--}}
+{{--<div class="container">--}}
+{{--<div class="row heading">--}}
+{{--<div class="col-lg-12">--}}
+
+{{--<h3 align="center" style="color: #206bd5;font-style: italic">Get to your beloved--}}
+{{--<i class="fa fa-heart" style="font-size: 24px;font-style: italic;color: #eb563f;"></i>--}}
+{{--space now with us :) </h3><br/>--}}
+
+{{--<div class="panel panel-info">--}}
+{{--<div class="panel-heading">Search Spaces In Any Governorate</div>--}}
+{{--<div class="panel-body">--}}
+{{--<div class="form-group">--}}
+{{--<input type="text" name="search" id="search" class="form-control"--}}
+{{--placeholder="Search Spaces"/>--}}
+{{--</div>--}}
+{{--<div class="table-responsive">--}}
+{{--<h3 align="center">Total Results : <span id="total_records"></span></h3>--}}
+{{--<form action="{{route('governorateSpaces')}}" method="get">--}}
+{{--@csrf--}}
+{{--<table class="table table-striped table-bordered">--}}
+{{--<thead>--}}
+{{--<tr>--}}
+{{--<th>Space Name</th>--}}
+{{--<th>Space Governorate</th>--}}
+{{--<th>Space Address</th>--}}
+{{--<th>Space Rooms</th>--}}
+{{--</tr>--}}
+{{--</thead>--}}
+{{--<tbody>--}}
 
 
-{{--example refrence for image div--}}
+{{--</tbody>--}}
+{{--</table>--}}
+{{--</form>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+
+{{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
+{{--<input type="hidden" name="_token" value="{{ Session::token() }}">--}}
+{{--<script>--}}
+{{--$(document).ready(function () {--}}
 
 
-{{--<div class="col-sm-6 col-md-3 col-lg-3 ohama_beach">--}}
-{{--<div class="post">--}}
-{{--<div class="item-container wow fadeInUp" data-wow-delay="200ms">--}}
-{{--<div class="item-caption">--}}
-{{--<div class="item-caption-inner">--}}
-{{--<div class="item-caption-inner1">--}}
-{{--<a class="example-image-link" href="images/3.jpg"--}}
-{{--data-lightbox="example-set"--}}
-{{--data-title="Click the right half of the image to move forward.">--}}
-{{--<i class="fa fa-search"></i>--}}
-{{--</a>--}}
+{{--function fetch_customer_data(query = '') {--}}
+{{--// $.ajaxSetup({--}}
+{{--//     headers: {--}}
+{{--//         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--//     }--}}
+{{--// });--}}
+
+{{--$.ajax({--}}
+{{--// headers: {--}}
+{{--//     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--// },--}}
+{{--url: "{{ route('live_search.action') }}",--}}
+{{--method: 'GET',--}}
+{{--data: {query: query},--}}
+{{--dataType: 'json',--}}
+{{--success: function (data) {--}}
+{{--$('tbody').html(data.table_data);--}}
+{{--$('#total_records').text(data.total_data);--}}
+{{--}--}}
+{{--})--}}
+{{--}--}}
+
+{{--$(document).on('keyup', '#search', function () {--}}
+{{--var query = $(this).val();--}}
+{{--fetch_customer_data(query);--}}
+{{--});--}}
+
+{{--fetch_customer_data();--}}
+{{--});--}}
+{{--</script>--}}
 {{--</div>--}}
 {{--</div>--}}
-{{--</div>--}}
-{{--<img src="images/3-thumb.jpg"/>--}}
-{{--</div>--}}
-{{--<span>Aenean feugiat in ante et blandit. Vestibulum posuere molestie risus, ac interdum magna porta non.</span>--}}
-{{--</div>--}}
-{{--</div>--}}
+{{--</section>--}}

@@ -1,58 +1,64 @@
 @extends('workspace.layouts.master')
 
 
-{{--
-
-
---}}
-
-
 @section('pageContent')
-    <section class="box-content box-1 box-style-1" id="content">
+
+
+    @if(count($errors)>0)
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger">{{$error}}</div>
+        @endforeach
+
+    @endif
+
+
+    @if(session('deleted'))
+        <div class="alert alert-danger">
+            <strong>{{session('deleted')}}</strong> Successfully.
+        </div>
+    @endif
+
+
+    <section class="box-content " id="userCrud">
         <div class="container">
 
-            @if(session('deleted'))
-                <div class="alert alert-danger">
-                    <strong>{{session('deleted')}}</strong> Successfully.
+
+            {{--<div class=" heading subheading">--}}
+                {{--<div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">--}}
+                    {{--<h4>Welcome To Our Creative WorkSpace</h4>--}}
+                    {{--<br><br>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+
+
+            <div class="row heading subheading">
+                <div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">
+                    <h4 style="font-size: 45px">Add A New User</h4>
+                    <hr>
+                    <br>
                 </div>
-            @endif
-
-
-
-
-
-
-
-                {{-- CATCHING ERRORS--}}
-                @if(count($errors)>0)
-                    @foreach($errors->all() as $error)
-                        <div class="alert alert-danger">{{$error}}</div>
-                    @endforeach
-
-                @endif
-
-
-
-
-
-
-
+            </div>
 
 
             {{--   INSERT  a user--}}
             <form action="{{route('insertUser')}}" method="post" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 <table class="table table-striped table-bordered">
+                    <thead
+                        style="font-size: 13.5px;text-align: center; font-weight: bolder;background-color:burlywood;">
                     <th>User Name</th>
                     <th>User Password</th>
                     <th>User Email</th>
                     <th>User Mobile</th>
                     <th>User Type</th>
+                    </thead>
+                    <tbody>
                     <tr>
                         <input type="hidden" class="form-control" name="user_id" hidden>
 
                         <td><input type="text" class="form-control" name="name" placeholder="ex: name99" required></td>
-                        <td><input type="password" class="form-control" name="password" placeholder="minimum length = 6" required></td>
+                        <td><input type="password" class="form-control" name="password" placeholder="minimum length = 6"
+                                   required></td>
                         <td><input type="text" class="form-control" style="width: 100px;" name="email"
                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                    placeholder="ex: abc@example.com"
@@ -74,15 +80,27 @@
                             <button class="btn btn-success" style="width:100%;">Add user</button>
                     </tr>
                     </td>
-
+                    </tbody>
                 </table>
 
             </form>
 
 
+
+            <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+            <script>
+                $(function () {
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: $("#goto").offset().top - 180
+                    }, 1000);
+                });
+            </script>
+
+
             {{-- show  users in table--}}
-                {{ $users->links() }}
-            <table class="table table-striped table-bordered">
+            {{ $users->links() }}
+            <table class="table table-striped table-bordered" id="goto">
+                <thead style="font-size: 13.5px;text-align: center; font-weight: bolder;background-color:burlywood;">
                 <th>User Name</th>
                 {{--<th>User Password</th>--}}
                 <th>User Email</th>
@@ -90,7 +108,9 @@
                 <th>User Type</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                </thead>
                 @foreach($users as $user)
+                    <tbody>
                     <tr>
                         <td>{{$user->name}}</td>
                         {{--<td>{{$user->password}}</td>--}}
@@ -110,9 +130,6 @@
                                data-toggle="modal" data-target="#dangerDeleteModal{{$user->user_id}}"
                             >Delete</a></td>
                     </tr>
-
-
-
 
 
                     <!-- Modal for DELETE-->
@@ -140,27 +157,13 @@
                                     > Yes, Delete it!
                                     </button>
                                 </div>
-                            </div>m
+                            </div>
+                            m
                         </div>
                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    </tbody>
 
 
 
@@ -169,7 +172,7 @@
 
             <!-- The Edit Modal -->
             <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-                 aria-labelledby="myEditModalLabel" >
+                 aria-labelledby="myEditModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -182,19 +185,6 @@
                         </div>
                         <div class="modal-body">
                             <p>aloooooo</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                             {{--INSERT TABLE In Edit Modal--}}
                             {{--   INSERT  a user--}}
@@ -212,11 +202,14 @@
                                         </td>
                                         <td><input type="passwrod" class="form-control" name="password" required>
                                         </td>
-                                        <td><input type="text" class="form-control" style="width: 100px;" name="email" required>
+                                        <td><input type="text" class="form-control" style="width: 100px;"
+                                                   name="email" required>
 
-                                        <td><input type="text" class="form-control" name="user_mobile" required></td>
+                                        <td><input type="text" class="form-control" name="user_mobile" required>
+                                        </td>
 
-                                        <td><input type="number" min="1" class="form-control" value="3" name="user_type" required></td>
+                                        <td><input type="number" min="1" class="form-control" value="3"
+                                                   name="user_type" required></td>
                                     </tr>
 
                                 </table>
@@ -237,25 +230,6 @@
                 </div>
             </div>
             {{--end of insert table in Modal--}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         </div>

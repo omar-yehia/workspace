@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Room;
 use App\Space;
 use http\Exception\BadConversionException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,33 +26,26 @@ class RoomController extends Controller
     {
 //        If Admin
         if (Auth::user()->user_type == 1) {
-            $rooms = Room::all();
-        }
-
-        //        If Owner
+            $rooms = Room::paginate(5);
+        } //        If Owner
         elseif (Auth::user()->user_type == 2) {
 
 
+            $rooms = new Collection();
 
-            $rooms = [];
             $spacesOfThisOwner = Space::where('owner_user_id', Auth::user()->user_id)->get();
 
             foreach ($spacesOfThisOwner as $space) {
-                $roomsToAdd = Room::where('space_id', $space->space_id)->get()->all();
-                $rooms =array_merge ($rooms,$roomsToAdd);
+                $rooms = $rooms->merge(Room::where('space_id', $space->space_id)->get());
 
             }
 
-
-        }
-
-        else{
+        } else {
             return back();
         }
 
         return view('workspace.cruds.roomCrud', compact('rooms'));
     }
-
 
 
     public function showSpaceRooms($spaceId)
@@ -67,7 +61,7 @@ class RoomController extends Controller
 
         $space = Space::where('space_name', $request->input('space_name'))->get()->first();
 
-        if (isset($space)){
+        if (isset($space)) {
             if (($space->owner_user_id == Auth::user()->user_id) || (Auth::user()->user_type == 1)) {
 
 
@@ -80,25 +74,38 @@ class RoomController extends Controller
                 ]);
 
 
+                $newRoom = new Room();
+
+//                if ($request->hasFile('room_image_path')) {
+
                 $ImageFile = $request->file('room_image_path');
                 $destinationPath = public_path('/images');
                 $radomNumber = rand(1, 90);
                 $ImageName = $radomNumber . $ImageFile->getClientOriginalName();
                 $ImageFile->move($destinationPath, $ImageName);
 
-                $newRoom = new Room();
+                $newRoom->room_image_path = $ImageName;
+//                }
+//                else {
+//                    $newRoom->room_image_path = 'defaultRoomImage1.jpg';
+//                }
+
 
                 $newRoom->room_id = $request->input('room_id');
                 $newRoom->space_id = $space->space_id;
                 $newRoom->room_name = $request->input('room_name');
                 $newRoom->available_chairs = $request->input('available_chairs');
                 $newRoom->chair_price_per_hour = $request->input('chair_price_per_hour');
-                $newRoom->room_image_path = $ImageFile;
 
 
                 $newRoom->save();
 
+
+//                return redirect('showOwnerHisClientsReservations');
             }
+//            else{
+//                return err("You Don't owe this space , or the space name is incorrect!");
+//            }
 
         }
 
@@ -124,10 +131,9 @@ class RoomController extends Controller
     {
 
 
-
         $room = Room::find($request->room_id);
 
-        if (isset($room)){
+        if (isset($room)) {
 
             $owner_id = $room->space->user->user_id;
 
@@ -172,7 +178,6 @@ class RoomController extends Controller
         }
 
 
-
         return back();
     }
 
@@ -192,3 +197,26 @@ class RoomController extends Controller
 
 
 }
+
+
+
+
+
+//
+//            $rooms = [];
+//            $spacesOfThisOwner = Space::where('owner_user_id', Auth::user()->user_id)->get();
+//
+//            foreach ($spacesOfThisOwner as $space) {
+//                $roomsToAdd = Room::where('space_id', $space->space_id)->get()->all();
+////                $roomsToAdd = Room::where('space_id', $space->space_id)->paginate(5);
+//
+//                $rooms = array_merge($rooms, $roomsToAdd);
+//
+//            }
+
+//            $Topic = new Topic();
+//            $Topic::hydrate($result);
+
+//            $roomsFinal = new Room();
+//            $roomsFinal::hydrate($rooms);
+//            return $roomsFinal;

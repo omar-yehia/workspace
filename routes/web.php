@@ -112,6 +112,8 @@ Route::get('governorateSpaces','SpaceController@governorateSpaces')->name('gover
 
 Route::get('userProfile','UserController@userProfile')->name('userProfile');
 
+Route::get('showOwnerHisClientsReservations','UserController@showOwnerHisClientsReservations')->name('showOwnerHisClientsReservations');
+
 //=============================
 //    TESTS
 //=============================
@@ -124,8 +126,8 @@ Route::get('searchTest2',function (){
 });
 
 
-Route::get('/live_search', 'LiveSearch@index');
-Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
+Route::get('/live_search', 'LiveSearchController@index');
+Route::get('/live_search/action', 'LiveSearchController@action')->name('live_search.action');
 //
 
 Route::get('starsTest',function (){
@@ -140,6 +142,27 @@ Route::get('starsTest',function (){
 Route::get('searchTest',function (){
     return view('workspace.pages.liveSearchTest');
 })->name('searchTest');
+
+
+
+
+
+Route::get('river',function (){
+    return view('workspace.pages.requestRiverData');
+});
+
+
+
+
+
+
+//      momen@gmail.com
+//      ramy33@gmail.com
+
+
+
+
+
 
 //Route::post('searchSpace','SpaceController@searchSpace')->name('searchSpace');
 //

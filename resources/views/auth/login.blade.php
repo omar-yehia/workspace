@@ -4,12 +4,18 @@
 {{--@section('content')--}}
 @section('pageContent')
 
-    <section class="box-content box-1 box-style-1" id="login">
+    <section class="box-content box-login box-style-login" id="login">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row heading subheading">
+                <div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">
+                    <h4>Login Form</h4>
+                   <br><br>
+                </div>
+            </div>
+            <div class="row justify-content-center loginForm">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">{{ __('Login') }}</div>
+                        {{--<div class="card-header">{{ __('Login') }}</div>--}}
 
                         <div class="card-body">
                             <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
@@ -67,10 +73,10 @@
                                         <button type="submit" class="btn btn-primary">
                                             {{ __('Login') }}
                                         </button>
-
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
+                                      <br><br>
+                                        {{--<a class="btn btn-link f-right" href="{{ route('password.request') }}">--}}
+                                            {{--{{ __('Forgot Your Password?') }}--}}
+                                        {{--</a>--}}
                                     </div>
                                 </div>
                             </form>

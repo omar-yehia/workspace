@@ -1,14 +1,19 @@
-{{--@extends('layouts.app')--}}
 @extends('workspace.layouts.master')
 
 @section('pageContent')
-{{--@section('content')--}}
-<br><br><br><br><br>
-    <div class="container">
-        <div class="row justify-content-center">
+
+    <section class="box-content box-login box-style-login" id="register">
+    <div class="container" >
+            <div class="row heading subheading">
+                <div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">
+                    <h4 style="font-size: 40px">Registeration Form</h4>
+                    <br>
+                </div>
+            </div>
+        <div class="row justify-content-center registerForm">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    {{--<div class="card-header">{{ __('Register') }}</div>--}}
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}" autocomplete="on">
@@ -92,7 +97,7 @@
                                 <label for="user_type"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Choose Account Type') }}</label>
 
-                                <div class="">
+                            </div>
 
                                     <div class="form-check">
                                         <label class="form-check-label">
@@ -107,19 +112,19 @@
                                         </label>
                                     </div>
 
-                                </div>
 
-                            </div>
+
+
                             {{--<div class="col-md-6 ">--}}
                             {{--<input type="number" min="" max="2" value="2" class="form-control" id="user_type"--}}
                             {{--name="user_type">--}}
                             {{--</div>--}}
 
 
-                            <div class="form-group row mb-0">
+                            <div class="form-group row ">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
+                                        {{__('Register') }}
                                     </button>
                                 </div>
                             </div>
@@ -129,4 +134,6 @@
             </div>
         </div>
     </div>
+    </section>
+
 @endsection

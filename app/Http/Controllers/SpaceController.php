@@ -40,10 +40,10 @@ class SpaceController extends Controller
     {
         //        if Admin
         if (Auth::user()->user_type == 1) {
-            $spaces = Space::all();
+            $spaces = Space::paginate(5);
         } //        if Owner
         elseif (Auth::user()->user_type == 2) {
-            $spaces = Space::where('owner_user_id', Auth::user()->user_id)->get();
+            $spaces = Space::where('owner_user_id', Auth::user()->user_id)->paginate(5);
         } else {
             return back();
         }
@@ -60,7 +60,7 @@ class SpaceController extends Controller
 
 
             $this->validate($request, [
-                'space_name' => 'required|string',
+                'space_name' => 'required|string|unique:spaces',
                 'space_city' => 'required|string',
                 'space_owner_name' => 'required|string',
                 'space_address' => 'required|string',
@@ -86,6 +86,7 @@ class SpaceController extends Controller
             $newSpace->space_address = $request->input('space_address');
             $newSpace->space_number_of_rooms = $request->input('space_number_of_rooms');
             $newSpace->space_image_path = $ImageName;
+            $newSpace->space_rating = 3;
             $newSpace->save();
         }
 
@@ -138,7 +139,7 @@ class SpaceController extends Controller
             $space->space_address = $request->space_address;
             $space->space_number_of_rooms = $request->space_number_of_rooms;
             $space->space_image_path = $ImageName;
-
+            $space->space_rating = 3;
             $space->save();
 
             return redirect('spaceCrud');

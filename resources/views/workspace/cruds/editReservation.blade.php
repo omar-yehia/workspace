@@ -1,23 +1,18 @@
 @extends('workspace.layouts.master')
 @section('pageContent')
-    <section class="box-content box-1 box-style-1">
+    <section class="box-content box-login box-style-login  editReservation">
         <div class="container">
 
-
-
-
-            {{-- CATCHING ERRORS--}}
-            @if(count($errors)>0)
-                @foreach($errors->all() as $error)
-                    <div class="alert alert-danger">{{$error}}</div>
-                @endforeach
-
-            @endif
-
-
+            <div class="row heading subheading">
+                <div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">
+                    <h4>Edit Your Reservation</h4>
+                    <br><br>
+                </div>
+            </div>
             <form action="{{route('updateReservation')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <table class="table table-striped table-bordered">
+                    <thead style="font-size: 13.5px;text-align: center; font-weight: bolder;background-color:burlywood;">
                     <th>Reservation Space</th>
                     <th>Reservation Room</th>
                     <th>Reservation Client</th>
@@ -25,6 +20,8 @@
                     <th>Reservation From</th>
                     <th>Reservation To</th>
                     <th>Number Of Chairs Reserved</th>
+                    </thead>
+                    <tbody>
                     <tr>
                         {{--<input type="hidden" class="form-control" name="reservation_id"--}}
                         {{--value="{{$reservation->reservation_id}}" hidden>--}}
@@ -66,7 +63,7 @@
                         <td><select class="form-control" name="reservation_from_hour"
                                 value="{{old('reservation_from_hour')}}" required>
                             @foreach(range(1, 24) as $hour)
-                                <option>{{$hour}}</option>
+                                    <option {{ $hour == $reservation->reservation_from_hour? ' selected' : '' }} >{{$hour}}</option>
                             @endforeach
                         </select>
                         </td>
@@ -77,7 +74,7 @@
                         <td><select class="form-control" name="reservation_to_hour"
                                     value="{{old('reservation_to_hour')}}" required>
                                 @foreach(range(1, 24) as $hour)
-                                    <option>{{$hour}}</option>
+                                    <option {{ $hour == $reservation->reservation_to_hour? ' selected' : '' }} >{{$hour}}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -92,11 +89,11 @@
                     </tr>
                     <tr>
                         <td colspan="7">
-                            <button class="btn btn-success" style="width:100%;">Update Reservation
+                            <button class="btn btn-success" style="width:100%; background-color: orangered;height: 35px;font-size: 16px;border: none ">Update Reservation
                             </button>
                         </td>
                     </tr>
-
+                    </tbody>
                 </table>
             </form>
         </div>

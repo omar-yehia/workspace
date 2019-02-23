@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     public function reservation()
     {
-        return $this->hasMany('App\Reservation');
+        return $this->hasMany('App\Reservation','reservation_id');
     }
 
     public function space()

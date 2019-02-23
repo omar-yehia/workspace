@@ -18,12 +18,30 @@ class ReservationController extends Controller
     }
 
 
+
+
+//    get all reservations of clients in spaces of owner
+    public function showOwnerHisClientsReservations()
+    {
+        if (Auth::user()->user_type == 2) {
+
+
+            return Auth::user()->space;
+
+//            $reservations = Reservation::where();
+//            return view('workspace.cruds.reservationCrud', compact('reservations'));
+        }
+        return back();
+    }
+
+
+
 //    get all reservations
     public function index()
     {
 
         if (Auth::user()->user_type == 1) {
-            $reservations = Reservation::all();
+            $reservations = Reservation::paginate(5);
             return view('workspace.cruds.reservationCrud', compact('reservations'));
         }
         return back();
