@@ -30,6 +30,7 @@
                     <th>User Password</th>
                     <th>User Email</th>
                     <th>User Mobile</th>
+                    <th>User Image</th>
                     <th>User Type</th>
                     </thead>
                     <tbody>
@@ -50,6 +51,8 @@
                         <td><input type="text" class="form-control" name="user_mobile"
                                    value="{{$user->user_mobile}}"
                                    pattern="(01)[0-9]{9}" placeholder="ex: 01xxxxxxxxx" required></td>
+
+                        <td><input type="file" class="form-control" name="user_image_path" required></td>
 
                         <td><input type="number" min="1" class="form-control" name="user_type"
                                    min="1" max="3"

@@ -50,7 +50,9 @@
                     <th>User Password</th>
                     <th>User Email</th>
                     <th>User Mobile</th>
+                    <th>User Image</th>
                     <th>User Type</th>
+
                     </thead>
                     <tbody>
                     <tr>
@@ -68,12 +70,17 @@
                                    pattern="(01)[0-9]{9}" placeholder="ex: 01xxxxxxxxx"
                                    required></td>
                         {{--oninvalid="this.setCustomValidity('Please enter a correct mobile, 11 number ,starting with 01.')"--}}
+
+                        <td><input type="file" class="form-control" name="user_image_path" required></td>
+
                         <td><input type="number" min="1" class="form-control"
                                    min="1" max="3"
                                    oninput="
                                    this.value=Math.abs(this.value);
                                    if(this.value>3){this.value =3};"
                                    name="user_type" value="3" required>
+
+
                     </tr>
                     <tr>
                         <td colspan="6">
@@ -106,6 +113,7 @@
                 <th>User Email</th>
                 <th>User Mobile</th>
                 <th>User Type</th>
+                <th>User Image</th>
                 <th>Edit</th>
                 <th>Delete</th>
                 </thead>
@@ -117,6 +125,7 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->user_mobile}}</td>
                         <td>{{$user->user_type}}</td>
+                        <td><img src="images/{{$user->user_image_path}}" style="max-width: 100px; max-height: 100px;"></td>
 
                         <td>
                             <button class="btn btn-info"
@@ -196,6 +205,7 @@
                                     <th>Password</th>
                                     <th>Email</th>
                                     <th>User Mobile</th>
+                                    <th>User Image</th>
                                     <th>User Type</th>
                                     <tr>
                                         <td><input type="text" class="form-control" name="name" required>

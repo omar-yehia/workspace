@@ -7,6 +7,8 @@ use App\Space;
 use http\Exception\BadConversionException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,6 +21,14 @@ class RoomController extends Controller
     {
         $this->middleware('auth')->except('showSpaceRooms');
     }
+
+
+//    public function paginateFunction($items, $perPage = 5, $page = null, $options = [])
+//    {
+//        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+//        $items = $items instanceof Collection ? $items : Collection::make($items);
+//        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+//    }
 
 
 //    get all rooms
@@ -40,11 +50,13 @@ class RoomController extends Controller
 
             }
 
+//            $rooms = self::paginateFunction($rooms, $perPage = 5, $page = null, $options = []);
+
         } else {
             return back();
         }
 
-        return view('workspace.cruds.roomCrud', compact('rooms'));
+        return view('workspace.cruds.roomCrud', compact('rooms','spacesOfThisOwner'));
     }
 
 

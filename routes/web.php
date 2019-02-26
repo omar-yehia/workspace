@@ -121,6 +121,21 @@ Route::get('showOwnerHisClientsReservations','UserController@showOwnerHisClients
 
 
 //
+
+Route::get('testNotification',function (){
+    return view('workspace.pages.testNotification');
+})->name('testNotification');
+
+
+
+
+Route::get('sendNotification',function (){
+    return view('workspace.pages.sendNotification');
+})->name('sendNotification');
+
+
+
+
 Route::get('searchTest2',function (){
     return view('workspace.pages.liveSearchTest2');
 });

@@ -45,17 +45,19 @@
                     <thead
                         style="font-size: 13.5px;text-align: center; font-weight: bolder;background-color:burlywood;">
                     <th>Reservation Space</th>
+                    <th>Space Image</th>
                     <th>Reservation Room</th>
+                    <th>Room Image</th>
                     <th>Reservation Client</th>
+                    <th>Client Image</th>
                     <th>Reservation Date</th>
                     <th>Reservation From</th>
                     <th>Reservation To</th>
                     <th>Number Of Chairs Reserved</th>
                     @if(Auth::user()->user_type==3)
                         <th>Edit</th>
+                        <th>Delete</th>
                     @endif
-
-                    <th>Delete</th>
                     </thead>
 
                     @foreach($userReservations as $userReservation)
@@ -63,12 +65,16 @@
                         <tr>
                             <td hidden>{{$userReservation->reservation_id}}</td>
                             <td>{{$userReservation->space->space_name}}</td>
+                            <td><img src="images/{{$userReservation->space->space_image_path}}" style="max-width: 100px; max-height: 100px;"></td>
                             <td>{{$userReservation->room->room_name}}</td>
+                            <td><img src="images/{{$userReservation->room->room_image_path}}" style="max-width: 100px; max-height: 100px;"></td>
                             @if(Auth::user()->user_type==3)
                                 <td>{{Auth::user()->name}}</td>
+                                <td><img src="images/{{Auth::user()->user_image_path}}" style="max-width: 100px; max-height: 100px;"></td>
 
                             @elseif(Auth::user()->user_type==2)
                                 <td>{{\App\User::find($userReservation->user_id)->name}}</td>
+                                <td><img src="images/{{$userReservation->user->user_image_path}}" style="max-width: 100px; max-height: 100px;"></td>
 
                             @endif
 
@@ -89,13 +95,13 @@
                                 </td>
 
 
-                            @endif
+                                {{--@endif--}}
 
 
-                            <td><a class="btn btn-danger"
-                                   data-toggle="modal"
-                                   data-target="#dangerDeleteModal{{$userReservation->reservation_id}}"
-                                >Delete</a></td>
+                                <td><a class="btn btn-danger"
+                                       data-toggle="modal"
+                                       data-target="#dangerDeleteModal{{$userReservation->reservation_id}}"
+                                    >Delete</a></td>
                         </tr>
 
                         </tbody>
@@ -136,6 +142,8 @@
                             </div>
                         </div>
 
+                        @endif
+
                     @endforeach
                 </table>
 
@@ -148,7 +156,8 @@
 
 
             @elseif(Auth::user()->user_type==2)
-                <div class="alert alert-info"><h1 style="color: #ca6900;">Your first client hasn't made any reservations yet :)
+                <div class="alert alert-info"><h1 style="color: #ca6900;">Your first client hasn't made any reservations
+                        yet :)
                         {{--<i class="fa fa-smile-o" style="color: #ee6500;"></i>--}}
                     </h1></div>
 

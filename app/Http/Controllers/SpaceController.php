@@ -90,6 +90,10 @@ class SpaceController extends Controller
             $newSpace->save();
         }
 
+        if(Auth::user()->user_type == 2){
+            return redirect(route('roomCrud'))->with('spaceAdded','Space Added');
+        }
+
         return back();
     }
 

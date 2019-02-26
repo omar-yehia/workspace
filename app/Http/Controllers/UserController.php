@@ -94,8 +94,17 @@ class UserController extends Controller
                 'password' => 'required|string|min:6',
                 'user_mobile' => 'required|min:11|max:11|regex:/(01)[0-9]{9}/',
                 'user_type' => 'required|in:1,2,3',
+                'user_image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             ]);
+
+
+            $ImageFile = $request->file('user_image_path');
+            $destinationPath = public_path('/images');
+            $radomNumber = rand(1, 90);
+            $ImageName = $radomNumber . $ImageFile->getClientOriginalName();
+            $ImageFile->move($destinationPath, $ImageName);
+
 
 
             $newUser = new User();
@@ -104,6 +113,7 @@ class UserController extends Controller
             $newUser->email = $request->input('email');
             $newUser->user_mobile = $request->input('user_mobile');
             $newUser->user_type = $request->input('user_type');
+            $newUser->user_image_path = $ImageName;
 
             $newUser->save();
 
@@ -137,10 +147,22 @@ class UserController extends Controller
                 'password' => 'required|string|min:6',
                 'user_mobile' => 'required|min:11|max:11|regex:/(01)[0-9]{9}/',
                 'user_type' => 'required|in:1,2,3',
+                'user_image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
 //                Rule::in([1,2,3]),
 
             ]);
+
+
+
+
+            $ImageFile = $request->file('user_image_path');
+            $destinationPath = public_path('/images');
+            $radomNumber = rand(1, 90);
+            $ImageName = $radomNumber . $ImageFile->getClientOriginalName();
+            $ImageFile->move($destinationPath, $ImageName);
+
+
 
             $user = User::find($request->user_id);
 
@@ -161,6 +183,8 @@ class UserController extends Controller
 
             $user->user_mobile = $request->user_mobile;
             $user->user_type = $request->user_type;
+            $user->user_image_path= $ImageName;
+
 
             $user->save();
 

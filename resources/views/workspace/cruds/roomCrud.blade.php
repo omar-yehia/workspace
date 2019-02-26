@@ -20,6 +20,21 @@
             @endif
 
 
+            @if(session('spaceAdded'))
+                <div class="alert alert-success">
+                    <strong>{{session('spaceAdded')}}</strong> Successfully.
+                </div>
+
+            @else()
+                <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+                <script>
+                    $(function () {
+                        $([document.documentElement, document.body]).animate({
+                            scrollTop: $("#goto").offset().top - 180
+                        }, 1000);
+                    });
+                </script>
+            @endif
 
             {{--<div class="row heading subheading">--}}
             {{--<div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">--}}
@@ -32,23 +47,14 @@
 
             {{--GO TO SECTION -- NO NEED TO SCROLL --}}
 
-            <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-            <script>
-                $(function () {
-                    $([document.documentElement, document.body]).animate({
-                        scrollTop: $("#goto").offset().top - 180
-                    }, 1000);
-                });
-            </script>
 
-
-                <div class="row heading subheading">
-                    <div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">
-                        <h4 style="font-size: 45px">Add A New Room</h4>
-                        <hr>
-                        <br>
-                    </div>
+            <div class="row heading subheading">
+                <div class="col-lg-12 wow fadeInLeft titleText" data-wow-delay="400ms">
+                    <h4 style="font-size: 45px">Add A New Room</h4>
+                    <hr>
+                    <br>
                 </div>
+            </div>
 
 
             {{--   INSERT  a room--}}
@@ -67,7 +73,20 @@
                     <tr>
                         <input type="hidden" class="form-control" name="room_id" hidden>
 
-                        <td><input type="text" class="form-control" name="space_name" required></td>
+                        @if(Auth::user()->user_type==1)
+                            <td><input type="text" class="form-control" name="space_name" required></td>
+
+                        @elseif(Auth::user()->user_type==2)
+                            <td>
+                                <select name="space_name" required>
+                                    @foreach($spacesOfThisOwner as $spaceOfThisOwner )
+                                        <option>{{$spaceOfThisOwner->space_name}}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+
+                        @endif
+
                         <td><input type="text" class="form-control" name="room_name" required></td>
 
                         <td><input type="number" class="form-control" name="available_chairs"
@@ -99,8 +118,11 @@
 
             {{--<div ><br><br><br><br><br><br><br></div>--}}
 
-            {{ $rooms->links() }}
-                {{--DISABLED IT BECAUSE THE RETURNED IS AN ARRAY NOT A COLLECTION??? --}}
+            @if(Auth::user()->user_type==1)
+                {{ $rooms->links() }}
+            @endif
+
+            {{--DISABLED IT BECAUSE THE RETURNED IS AN ARRAY NOT A COLLECTION??? --}}
 
             {{-- show  rooms in table--}}
             <table class="table table-striped table-bordered  insertedRoom" id="goto">
@@ -121,8 +143,8 @@
                         <td>{{$room->room_name}}</td>
                         <td>{{$room->available_chairs}}</td>
                         <td>{{$room->chair_price_per_hour}}</td>
-                        <td>{{$room->room_image_path}}</td>
-
+                        {{--<td>{{$room->room_image_path}}</td>--}}
+                        <td><img src="images/{{$room->room_image_path}}" style="max-width: 100px; max-height: 100px;"></td>
                         <td>
                             <button class="btn btn-info"
                                     data-toggle="modal" data-target="#editModal"

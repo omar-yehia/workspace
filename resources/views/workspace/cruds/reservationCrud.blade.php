@@ -101,20 +101,24 @@
 
             {{--</form>--}}
 
-            {{--<script type="text/javascript" src="js/jquery-2.1.1.js"></script>--}}
-            {{--<script>--}}
-                {{--$(function () {--}}
-                    {{--$([document.documentElement, document.body]).animate({--}}
-                        {{--scrollTop: $("#goto").offset().top - 180--}}
-                    {{--}, 1000);--}}
-                {{--});--}}
-            {{--</script>--}}
+            <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+            <script>
+                $(function () {
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: $("#goto").offset().top - 180
+                    }, 1000);
+                });
+            </script>
 
+            {{$reservations->links()}}
             {{-- show  reservations in table--}}
             <table class="table table-striped table-bordered" id="goto">
                 <th>Reservation Space</th>
+                <th>Space Image</th>
                 <th>Reservation Room</th>
+                <th>Room Image</th>
                 <th>Reservation Client</th>
+                <th>Client Image</th>
                 <th>Reservation Date</th>
                 <th>Reservation From</th>
                 <th>Reservation To</th>
@@ -124,13 +128,15 @@
                 @foreach($reservations as $reservation)
                     <tr>
                         <td >{{$reservation->space->space_name}}</td>
+                        <td><img src="images/{{$reservation->space->space_image_path}}" style="max-width: 60px; max-height: 60px;"></td>
                         <td >{{$reservation->room->room_name}}</td>
+                        <td><img src="images/{{$reservation->room->room_image_path}}" style="max-width: 60px; max-height: 60px;"></td>
                         <td >{{$reservation->user->name}}</td>
+                        <td><img src="images/{{$reservation->user->user_image_path}}" style="max-width: 60px; max-height: 60px;"></td>
                         <td>{{$reservation->reservation_date}}</td>
                         <td>{{$reservation->reservation_from_hour}}</td>
                         <td>{{$reservation->reservation_to_hour}}</td>
                         <td>{{$reservation->number_of_chairs_reserved}}</td>
-
                         <td>
                             <button class="btn btn-info"
                                     data-toggle="modal" data-target="#editModal"

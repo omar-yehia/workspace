@@ -116,6 +116,8 @@
             </script>
 
 
+
+                {{$spaces->links()}}
             {{-- show  spaces in table--}}
             <table class="table table-striped table-bordered  insertedRoom" id="goto">
                 <thead style="font-size: 13.5px;text-align: center; font-weight: bolder;background-color:burlywood;">
@@ -136,7 +138,8 @@
                         <td>{{$space->space_city}}</td>
                         <td>{{$space->space_address}}</td>
                         <td>{{$space->space_number_of_rooms}}</td>
-                        <td>{{$space->space_image_path}}</td>
+                        {{--<td>{{$space->space_image_path}}</td>--}}
+                        <td><img src="images/{{$space->space_image_path}}" style="max-width: 100px; max-height: 100px;"></td>
 
                         {{--<td><a class="btn btn-info" href="{{URL::route('editSpace',$space->space_id)}}">Edit</a></td>--}}
                         <td>

@@ -63,6 +63,8 @@ class RegisterController extends Controller
                 'required',
                 Rule::in([2, 3]),
             ],
+            'user_image_path' => 'required',
+
         ]);
     }
 //'user_mobile' => 'required|regex:/(01)[0-9]{9}/',
@@ -81,6 +83,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'user_mobile'=> $data['user_mobile'],
             'user_type'=> $data['user_type'],
+            'user_image_path'=> $data['user_image_path'],
 
         ]);
     }

@@ -9,10 +9,16 @@
 
     <title>Workspace.com</title>
 
+
 {{--from the auth login head--}}
 {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
-<!-- Bootstrap Core CSS -->
+
+
+    <link rel="shortcut icon" type="image/png" href="images/icon1.jpg">
+
+
+    <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
     <!-- Owl Carousel Assets -->
@@ -99,14 +105,15 @@
                                 <a class="page-scroll" href="{{ route('spaceCrud') }}">Space Crud</a>
                             </li>
                             <li>
+                                <a class="page-scroll" href="{{ route('roomCrud') }}">Room Crud</a>
+                            </li>
+                            <li>
                                 <a class="page-scroll" href="{{ route('reservationCrud') }}">Reservation Crud</a>
                             </li>
                             <li>
                                 <a class="page-scroll" href="{{ route('userCrud') }}">User Crud</a>
                             </li>
-                            <li>
-                                <a class="page-scroll" href="{{ route('roomCrud') }}">Room Crud</a>
-                            </li>
+
 
                             {{--FOR Owner--}}
                         @elseif(Auth::user()->user_type==2)
