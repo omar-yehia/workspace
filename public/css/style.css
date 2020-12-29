@@ -70,7 +70,7 @@ input:not([type]), input[type="color"], input[type="email"], input[type="number"
     color: #d9e0e2;
     position: relative;
     height: 100%;
-    opacity: 0.8;
+    /* opacity: 80%; */
 }
 .backGroundImage .cityheader h2{
     color: #f05f40;
@@ -261,7 +261,7 @@ margin-left: 500px;border: 1px solid white;}
 /* ---------------------------------------------------------------------------- */
 /* ---------------------------------Content------------------------------------ */
 /* ---------------------------------------------------------------------------- */	
-#page-content{}
+/* #page-content{} */
 
 /* ---HomePage--- */
 .box-content {padding: 100px 0;}
@@ -272,14 +272,14 @@ box-content box-style-0{background-color:#F6F7F8;}
 .box-content .box-style-login{background-color: #F6F7F8;}
 .box-content .box-login{margin-top: 300px;
 }
+
 #login{
     background: url("../images/georgie-cobbs-459520-unsplash.jpg") no-repeat bottom center;
     background-size: cover;
     color: #d9e0e2;
     position: relative;
     height: 100%;
-    opacity: 0.5;
-
+    /* opacity: 60%; */
 }
 
 #login .loginForm{
@@ -359,7 +359,7 @@ box-content box-style-0{background-color:#F6F7F8;}
     position: relative;
     margin-bottom: 50px;
     height: 900px;
-    opacity: 0.9;
+    /* opacity: 90%; */
 
 }
 
@@ -407,7 +407,7 @@ box-content box-style-0{background-color:#F6F7F8;}
     margin-bottom: 100px;
 }
 #about{
-    margin-top: 400px;
+    /* margin-top: 400px; */
 }
 .box-content.box-1 {margin-top: 400px;}
 .box-content.box-1 .box-item{text-align: center;margin-bottom: 40px; }
