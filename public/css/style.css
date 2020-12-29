@@ -70,7 +70,7 @@ input:not([type]), input[type="color"], input[type="email"], input[type="number"
     color: #d9e0e2;
     position: relative;
     height: 100%;
-    opacity: 0.8%;
+    opacity: 0.8;
 }
 .backGroundImage .cityheader h2{
     color: #f05f40;
@@ -278,7 +278,7 @@ box-content box-style-0{background-color:#F6F7F8;}
     color: #d9e0e2;
     position: relative;
     height: 100%;
-    opacity: 0.5%;
+    opacity: 0.5;
 
 }
 
@@ -359,7 +359,7 @@ box-content box-style-0{background-color:#F6F7F8;}
     position: relative;
     margin-bottom: 50px;
     height: 900px;
-    opacity: 0.9%;
+    opacity: 0.9;
 
 }
 
